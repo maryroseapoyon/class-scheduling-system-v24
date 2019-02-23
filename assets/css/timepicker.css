@@ -1,0 +1,186 @@
+body{
+  background-color: grey;
+}
+.timepicker{
+  width: 300px;
+  height: 450px;
+  background-color: white;
+  position: relative;
+  font-family: Calibri;
+  .top{
+    background-color: #009788;
+    color: rgba(255,255,255,.7);
+    height: 100px;
+    line-height: 100px;
+    font-size: 50px;
+    text-align: center;
+    .active{
+      color: white;
+    }
+  }
+  .circle{
+    user-select: none;
+    .mid{
+      position: absolute;
+      left: calc(50% - 0px);
+      top: calc(50% - 0px);
+      width: 2px;
+      height: 2px;
+      border-radius: 10px;
+      background-color: black;
+    }
+    background-color: rgba(0,0,0,.1);
+    width: 250px;
+    height: 250px;
+    border-radius: 1000px;
+    position: relative;
+    top: 25px;
+    left: 25px;
+    box-sizing: border-box;
+    .hour{
+      position: absolute;
+      height: 40px;
+      line-height: 40px;
+      width: 40px;
+      border-radius: 40px;
+      text-align: center;
+      &.selected{
+        background-color:  #009788;
+        &::after{
+          content: '';
+        }
+      }
+      &::after{
+         z-index: -1;
+         background-color: #009788;
+         height: 1px;
+          width: 100%;
+          position: absolute;
+          transform: rotate(-90deg);
+          transform-origin: 100% 0%;
+          top: 50%;
+          width: 101px;
+          right: 50%;
+      }
+      &:hover{
+        color: white;
+        z-index: 2;
+        &::after{
+         content: '';
+        }
+      }
+    }
+    .mixin-loop (@i) when (@i > 0) {
+    .hour:nth-child(@{i}):after {
+      @calcdeg: @i * 30deg - 30deg;
+      transform: rotate(@calcdeg);
+    }
+    .mixin-loop(@i - 1);
+  }
+
+  .mixin-loop(12);
+    
+ 
+    
+    .hour2{
+      z-index: 2;
+      position: absolute;
+      height: 30px;
+      line-height: 30px;
+      width: 30px;
+      border-radius: 40px;
+      text-align: center;
+      font-size: 14px;
+      &:hover{
+        color: white;
+        &::after{
+         content: '';
+         background-color: #009788;
+         height: 1px;
+          width: 100%;
+          position: absolute;
+          transform: rotate(-90deg);
+          transform-origin: 100% 0%;
+          top: 50%;
+          width: 64px;
+          right: 50%;
+          z-index: -1;
+        }
+      }
+    }
+       .mixin-loop2 (@i) when (@i > 12) {
+    .hour2:nth-child(@{i}):after {
+      @calcdeg: @i * 30deg - 30deg;
+      transform: rotate(@calcdeg);
+    }
+    .mixin-loop2(@i - 1);
+  }
+
+  .mixin-loop2(24);
+    .hour, .hour2{
+      &:hover{
+        background-color:  #009788;
+      }
+    }
+    .min{
+      position: absolute;
+      height: 20px;
+      line-height: 20px;
+      width: 20px;
+      border-radius: 40px;
+      text-align: center;
+      font-size: 12px;
+      &:hover{
+        background-color: #009788;
+        &::after{
+         content: '';
+         background-color: #009788;
+         height: 1px;
+          width: 100%;
+          position: absolute;
+          transform: rotate(-90deg);
+          transform-origin: 100% 0%;
+          top: 50%;
+          width: 101px;
+          right: 50%;
+        }
+      }
+    }
+    .mixin-loop3 (@i) when (@i > 0) {
+    .min:nth-child(@{i}):after {
+      @calcdeg: @i * 6deg - 6deg;
+      transform: rotate(@calcdeg);
+    }
+    .mixin-loop3(@i - 1);
+  }
+
+  .mixin-loop3(60);
+  }
+  .actions{
+    color: #009788;
+    font-weight: bold;
+    font-size: 20px;
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    width: 100%;
+    box-sizing: border-box;
+    bottom: 10px;
+    .action{
+      display: inline-block;
+      width: 100px;
+      text-align: center;
+      height: 37.5px;
+      line-height: 37.5px;
+      margin-right: 10px;
+    cursor: pointer;
+    border-radius: 2px; 
+    &:hover{
+      background-color: rgba(0,0,0,.1);
+    }
+    &:active{
+      background-color: rgba(0,0,0,.3);
+    }
+    }
+  }
+}
